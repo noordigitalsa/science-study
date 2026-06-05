@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SNC2D Ultimate Exam Study Suite</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased">
+
+  <!-- Header Banner -->
+  <header class="bg-gradient-to-r from-violet-600 via-indigo-600 to-emerald-600 border-b border-white/10 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2 mb-1">
+          <span class="bg-white/20 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">SNC2D Grade-Saver Suite</span>
+          <span class="text-white/80 text-sm">Exam Countdown: ~1.5 Weeks</span>
+        </div>
+        <h1 class="text-3xl font-extrabold text-white tracking-tight">Grade 10 Science Ultimate Study Tool</h1>
+        <p class="text-indigo-100 mt-1 text-sm md:text-base">Designed to turn your 38% into a passing grade with simplified visuals, step-by-step math solvers, and interactive quizzes.</p>
+      </div>
+      <div class="flex items-center gap-3 bg-black/30 backdrop-blur-md px-4 py-3 rounded-xl border border-white/10">
+        <div class="text-right">
+          <p class="text-xs text-slate-300 font-semibold uppercase tracking-wider">Your Mastery Progress</p>
+          <p class="text-xl font-bold text-emerald-400" id="global-progress">0% Mastered</p>
+        </div>
+        <div class="w-12 h-12 rounded-full border-4 border-emerald-500/30 flex items-center justify-center relative">
+          <svg class="w-10 h-10 transform -rotate-90">
+            <circle cx="20" cy="20" r="16" stroke="currentColor" class="text-slate-700" stroke-width="4" fill="transparent"/>
+            <circle cx="20" cy="20" r="16" stroke="currentColor" class="text-emerald-400 transition-all duration-500" stroke-width="4" fill="transparent" stroke-dasharray="100.5" stroke-dashoffset="100.5" id="progress-ring-circle"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="bg-slate-800 border-b border-slate-700 sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-14">
+        <div class="flex space-x-2 md:space-x-8 overflow-x-auto py-2">
+          <button onclick="switchTab('dashboard')" id="tab-dashboard" class="nav-tab active flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold transition-all">
+            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+            Dashboard
+          </button>
+          <button onclick="switchTab('chemistry')" id="tab-chemistry" class="nav-tab flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-700/50 transition-all">
+            <svg class="w-4.5 h-4.5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            Chemistry
+          </button>
+          <button onclick="switchTab('physics')" id="tab-physics" class="nav-tab flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-700/50 transition-all">
+            <svg class="w-4.5 h-4.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            Physics (Optics)
+          </button>
+          <button onclick="switchTab('biology')" id="tab-biology" class="nav-tab flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-700/50 transition-all">
+            <svg class="w-4.5 h-4.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            Biology
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Workspace -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 sm:px-6 lg:px-8">
+
+    <!-- DASHBOARD VIEW -->
+    <div id="view-dashboard" class="space-y-8">
+      <div class="bg-gradient-to-br from-indigo-900/60 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 shadow-xl">
+        <h2 class="text-2xl font-bold text-indigo-300">How to Pass Grade 10 Science (Even Starting at 38%)</h2>
+        <p class="text-slate-300 mt-2">
+          Your exam is completely predictable. Most of the points come from basic **patterns and formulas**. If you learn the steps to:
+        </p>
+        <ul class="list-none grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+          <li class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700 flex gap-3">
+            <div class="w-8 h-8 rounded-lg bg-violet-500/20 text-violet-400 flex items-center justify-center font-bold">1</div>
+            <div>
+              <p class="font-semibold text-slate-200">Balance Equations</p>
+              <p class="text-xs text-slate-400">Guaranteed marks on both exams and test retakes.</p>
+            </div>
+          </li>
+          <li class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700 flex gap-3">
+            <div class="w-8 h-8 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center font-bold">2</div>
+            <div>
+              <p class="font-semibold text-slate-200">The GRASS Method</p>
+              <p class="text-xs text-slate-400">Gets you full method marks even if your final math is off.</p>
+            </div>
+          </li>
+          <li class="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700 flex gap-3">
+            <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">3</div>
+            <div>
+              <p class="font-semibold text-slate-200">Mitosis & Organs</p>
+              <p class="text-xs text-slate-400">Pure memorization. Easy to get 100% on this portion.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- High Yield Action Planner -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-6">
+          <h3 class="text-xl font-bold text-slate-200">Your Target Study Schedule (1.5 Weeks Left)</h3>
+          <div class="space-y-3">
+            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-4 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+              <div>
+                <span class="bg-violet-500/10 text-violet-400 text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-violet-500/20">Days 1 - 3</span>
+                <h4 class="font-semibold text-slate-200 mt-1">Master Chemical Nomenclature & Balancing</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Learn ionic vs covalent naming, counting atoms, and practicing the balancing simulator.</p>
+              </div>
+              <button onclick="switchTab('chemistry')" class="text-xs font-bold bg-violet-600 hover:bg-violet-700 text-white px-3.5 py-1.5 rounded-lg transition-all w-full md:w-auto">Start Chem</button>
+            </div>
+
+            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-4 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+              <div>
+                <span class="bg-indigo-500/10 text-indigo-400 text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-indigo-500/20">Days 4 - 6</span>
+                <h4 class="font-semibold text-slate-200 mt-1">Optics & GRASS Method Calculations</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Learn Snell's law, refractive index formulas, and mirror/lens ray diagrams.</p>
+              </div>
+              <button onclick="switchTab('physics')" class="text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-1.5 rounded-lg transition-all w-full md:w-auto">Start Physics</button>
+            </div>
+
+            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-4 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+              <div>
+                <span class="bg-emerald-500/10 text-emerald-400 text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-emerald-500/20">Days 7 - 9</span>
+                <h4 class="font-semibold text-slate-200 mt-1">Mitosis & Human Organ Systems</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Review cell cycle diagrams, cell structures, and study interdependence of systems.</p>
+              </div>
+              <button onclick="switchTab('biology')" class="text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-1.5 rounded-lg transition-all w-full md:w-auto">Start Biology</button>
+            </div>
+
+            <div class="bg-slate-800/50 border border-slate-700/60 rounded-xl p-4 flex flex-col md:flex-row gap-4 items-start md:items-center justify-between">
+              <div>
+                <span class="bg-amber-500/10 text-amber-400 text-xs font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-amber-500/20">Days 10 - 11</span>
+                <h4 class="font-semibold text-slate-200 mt-1">Full Exam Simulation</h4>
+                <p class="text-xs text-slate-400 mt-0.5">Take all 3 unit practice quizzes below multiple times until you hit 100%.</p>
+              </div>
+              <button onclick="document.getElementById('practice-quizzes-anchor').scrollIntoView({behavior: 'smooth'})" class="text-xs font-bold bg-amber-600 hover:bg-amber-700 text-white px-3.5 py-1.5 rounded-lg transition-all w-full md:w-auto">Quick Quiz</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Grade-Saver Tools Widget -->
+        <div class="space-y-6">
+          <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 shadow-lg">
+            <h3 class="text-lg font-bold text-slate-200 mb-3">Formula Quick-Sheet</h3>
+            <div class="space-y-4">
+              <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-700">
+                <p class="text-xs text-slate-400 font-bold tracking-wider uppercase">Physics: Refractive Index</p>
+                <p class="text-base font-bold text-indigo-300 mt-1">$$n = \frac{c}{v}$$</p>
+                <p class="text-xs text-slate-400 mt-0.5">$$c = 3.00 \times 10^8 \text{ m/s}$$</p>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-700">
+                <p class="text-xs text-slate-400 font-bold tracking-wider uppercase">Physics: Snell's Law</p>
+                <p class="text-base font-bold text-indigo-300 mt-1">$$n_1 \sin \theta_1 = n_2 \sin \theta_2$$</p>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-700">
+                <p class="text-xs text-slate-400 font-bold tracking-wider uppercase">Physics: Magnification</p>
+                <p class="text-base font-bold text-indigo-300 mt-1">$$M = \frac{h_i}{h_o} = \frac{d_i}{d_o}$$</p>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-700">
+                <p class="text-xs text-slate-400 font-bold tracking-wider uppercase">Chemistry: Mass Conservation</p>
+                <p class="text-sm font-semibold text-violet-300 mt-1">$$\text{Reactants Mass} = \text{Products Mass}$$</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Quiz Progress anchors -->
+      <div id="practice-quizzes-anchor" class="border-t border-slate-800 pt-8">
+        <h3 class="text-xl font-bold text-slate-200 mb-4">Jump-start Practice Quizzes</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-slate-800 border border-slate-700/80 rounded-xl p-5 hover:border-violet-500/30 transition-all">
+            <h4 class="font-bold text-slate-200 text-lg flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-violet-400"></span>
+              Chemistry Quiz
+            </h4>
+            <p class="text-xs text-slate-400 mt-2">10 high-yield questions on compound naming, Bohr-Rutherford, reaction classification, and pH.</p>
+            <button onclick="switchTab('chemistry'); setTimeout(() => document.getElementById('chem-quiz-section').scrollIntoView({behavior: 'smooth'}), 150)" class="mt-4 w-full text-xs font-bold py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-lg transition-all">Start Chem Quiz</button>
+          </div>
+          <div class="bg-slate-800 border border-slate-700/80 rounded-xl p-5 hover:border-indigo-500/30 transition-all">
+            <h4 class="font-bold text-slate-200 text-lg flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-indigo-400"></span>
+              Optics Quiz
+            </h4>
+            <p class="text-xs text-slate-400 mt-2">10 questions covering Snells' Law, SALT mirror properties, light reflection rules, and eye anatomy.</p>
+            <button onclick="switchTab('physics'); setTimeout(() => document.getElementById('physics-quiz-section').scrollIntoView({behavior: 'smooth'}), 150)" class="mt-4 w-full text-xs font-bold py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-all">Start Optics Quiz</button>
+          </div>
+          <div class="bg-slate-800 border border-slate-700/80 rounded-xl p-5 hover:border-emerald-500/30 transition-all">
+            <h4 class="font-bold text-slate-200 text-lg flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+              Biology Quiz
+            </h4>
+            <p class="text-xs text-slate-400 mt-2">10 questions covering Mitosis stages, organ system interdependence, plant vs animal cells, and imaging.</p>
+            <button onclick="switchTab('biology'); setTimeout(() => document.getElementById('biology-quiz-section').scrollIntoView({behavior: 'smooth'}), 150)" class="mt-4 w-full text-xs font-bold py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-all">Start Biology Quiz</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- CHEMISTRY VIEW -->
+    <div id="view-chemistry" class="space-y-8 hidden">
+      <!-- Unit Banner -->
+      <div class="bg-gradient-to-r from-violet-900/60 to-slate-900 border border-violet-500/30 rounded-2xl p-6 shadow-xl">
+        <h2 class="text-2xl font-bold text-violet-300">Chemistry Fast-Track Cheatsheet</h2>
+        <p class="text-slate-300 mt-2">Simplified cheat sheets covering the most tested patterns on your SNC2D exam paper.</p>
+      </div>
+
+      <!-- Quick Explanations Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Matter, Bohr-Rutherford & Ions -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 space-y-4">
+          <h3 class="text-lg font-bold text-slate-200 border-b border-slate-700 pb-2">1. Atoms, Bohr-Rutherford & Ions</h3>
+          <div class="space-y-3 text-sm">
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-violet-400 font-bold uppercase tracking-wider text-xs">Finding Atomic Particles</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li><strong>Protons</strong> = Atomic Number.</li>
+                <li><strong>Electrons</strong> = Atomic Number (for a neutral atom). If charged: subtract positive charge, add negative charge (e.g., $As^{3-}$ has 33 + 3 = 36 electrons).</li>
+                <li><strong>Neutrons</strong> = Mass Number (rounded) - Atomic Number.</li>
+              </ul>
+            </div>
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-violet-400 font-bold uppercase tracking-wider text-xs">Bohr-Rutherford Cheat Sheet</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li>Draw nucleus in center indicating protons ($p^+$) and neutrons ($n^0$).</li>
+                <li>Draw electron orbits around it: Max of **2** on 1st shell, **8** on 2nd, and **8** on 3rd.</li>
+                <li><strong>Ions</strong>: Metal atoms lose electrons to form positive cations. Non-metal atoms gain electrons to form negative anions. Draw brackets around ion with charge in top right corner.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Compound Nomenclature Rules -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 space-y-4">
+          <h3 class="text-lg font-bold text-slate-200 border-b border-slate-700 pb-2">2. Ionic, Polyatomic & Molecular Compounds</h3>
+          <div class="space-y-3 text-sm">
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-violet-400 font-bold uppercase tracking-wider text-xs">Ionic vs. Molecular/Covalent</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li><strong>Ionic (I)</strong>: Metal + Non-metal. Electrons are *transferred*. Stay together by electrostatic attraction.</li>
+                <li><strong>Polyatomic (P)</strong>: Contains a group of tightly bound non-metals with an overall charge (e.g., $Mg_3(PO_4)_2$).</li>
+                <li><strong>Molecular (M)</strong>: Non-metal + Non-metal. Electrons are *shared* (covalent bond).</li>
+              </ul>
+            </div>
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-violet-400 font-bold uppercase tracking-wider text-xs">Nomenclature Quick Rules</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li><strong>Binary Ionic</strong>: Name metal first, then non-metal ending with "-ide" (e.g., $K_2O$ = Potassium oxide).</li>
+                <li><strong>Multivalent</strong>: Metals that can form multiple ions use Roman numerals for charges (e.g., Iron (III) oxide = $Fe_2O_3$).</li>
+                <li><strong>Molecular</strong>: Use Greek prefixes (mono, di, tri, tetra, penta, hexa) for numbers of atoms (e.g., $PBr_5$ = Phosphorus pentabromide).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reactant & Balancing Interactive Tool -->
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg">
+        <h3 class="text-lg font-bold text-slate-200 mb-2">Interactive Balancing Practice</h3>
+        <p class="text-sm text-slate-400 mb-4">Balancing equations is simple: make sure the number of atoms on the **Reactant** side (left) equals the **Product** side (right). Adjust the coefficients to balance the equation!</p>
+        
+        <div class="bg-slate-900/80 p-5 rounded-xl border border-slate-750 space-y-6">
+          <!-- Equation 1: Combustion of Methane -->
+          <div>
+            <h4 class="text-sm font-semibold text-slate-300 mb-3">Balance: Combustion of Methane ($\text{CH}_4 + \text{O}_2 \rightarrow \text{CO}_2 + \text{H}_2\text{O}$)</h4>
+            <div class="flex flex-wrap items-center gap-3 py-4 text-lg font-mono">
+              <input type="number" id="coeff-ch4" value="1" min="1" max="10" class="w-12 bg-slate-850 border border-slate-700 rounded text-center text-violet-400 p-1" onchange="checkBalancing()">
+              <span>$\text{CH}_4$</span>
+              <span>+</span>
+              <input type="number" id="coeff-o2" value="1" min="1" max="10" class="w-12 bg-slate-850 border border-slate-700 rounded text-center text-violet-400 p-1" onchange="checkBalancing()">
+              <span>$\text{O}_2$</span>
+              <span class="text-slate-500 font-sans mx-1">$\rightarrow$</span>
+              <input type="number" id="coeff-co2" value="1" min="1" max="10" class="w-12 bg-slate-850 border border-slate-700 rounded text-center text-violet-400 p-1" onchange="checkBalancing()">
+              <span>$\text{CO}_2$</span>
+              <span>+</span>
+              <input type="number" id="coeff-h2o" value="1" min="1" max="10" class="w-12 bg-slate-850 border border-slate-700 rounded text-center text-violet-400 p-1" onchange="checkBalancing()">
+              <span>$\text{H}_2\text{O}$</span>
+            </div>
+
+            <!-- Live Atom Tally -->
+            <div class="grid grid-cols-3 gap-4 text-xs font-semibold p-3.5 bg-slate-950/50 border border-slate-800 rounded-lg">
+              <div>
+                <p class="text-slate-400 uppercase tracking-wider mb-1">Carbon (C)</p>
+                <div class="flex gap-4">
+                  <span id="tally-c-react" class="text-slate-300">Reactants: 1</span>
+                  <span id="tally-c-prod" class="text-slate-300">Products: 1</span>
+                </div>
+              </div>
+              <div>
+                <p class="text-slate-400 uppercase tracking-wider mb-1">Hydrogen (H)</p>
+                <div class="flex gap-4">
+                  <span id="tally-h-react" class="text-slate-300">Reactants: 4</span>
+                  <span id="tally-h-prod" class="text-slate-300">Products: 2</span>
+                </div>
+              </div>
+              <div>
+                <p class="text-slate-400 uppercase tracking-wider mb-1">Oxygen (O)</p>
+                <div class="flex gap-4">
+                  <span id="tally-o-react" class="text-slate-300">Reactants: 2</span>
+                  <span id="tally-o-prod" class="text-slate-300">Products: 4</span>
+                </div>
+              </div>
+            </div>
+
+            <p id="balancing-status" class="text-sm font-semibold text-rose-400 mt-3 flex items-center gap-1.5">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+              Not balanced yet. Try adjusting the Reactant O₂ and Product H₂O coefficients.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Types of Chemical Reactions -->
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 space-y-4">
+        <h3 class="text-lg font-bold text-slate-200 border-b border-slate-700 pb-2">3. Reactant Types & Product Prediction</h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+          <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-750">
+            <span class="text-amber-400 font-bold tracking-wider uppercase text-xs">Synthesis & Decomposition</span>
+            <p class="text-xs text-slate-400 mt-1"><strong>Synthesis</strong>: Two elements combine to form one compound ($A + B \rightarrow AB$).</p>
+            <p class="text-xs text-slate-400 mt-1"><strong>Decomposition</strong>: A compound breaks down into two elements ($AB \rightarrow A + B$).</p>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-750">
+            <span class="text-sky-400 font-bold tracking-wider uppercase text-xs">Single & Double Displacement</span>
+            <p class="text-xs text-slate-400 mt-1"><strong>Single Displacement</strong>: One element replaces another in a compound ($A + BC \rightarrow AC + B$).</p>
+            <p class="text-xs text-slate-400 mt-1"><strong>Double Displacement</strong>: Cations in two compounds trade partners ($AB + CD \rightarrow AD + CB$).</p>
+          </div>
+          <div class="bg-slate-900/60 p-3.5 rounded-xl border border-slate-750">
+            <span class="text-emerald-400 font-bold tracking-wider uppercase text-xs">Combustion & Neutralization</span>
+            <p class="text-xs text-slate-400 mt-1"><strong>Combustion</strong>: Hydrocarbon + Oxygen gas produces Carbon dioxide and Water ($\text{CO}_2 + \text{H}_2\text{O}$).</p>
+            <p class="text-xs text-slate-400 mt-1"><strong>Neutralization</strong>: Acid + Base produces Ionic Salt + Water ($\text{H}_2\text{O}$).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chemistry High Yield Practice Quiz -->
+      <div id="chem-quiz-section" class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg">
+        <h3 class="text-lg font-bold text-slate-200 mb-2">High-Yield Chemistry Practice Quiz</h3>
+        <p class="text-sm text-slate-400 mb-4">Master these 10 exam-aligned practice questions. Check explanations carefully if you miss any!</p>
+
+        <div id="chem-quiz-box" class="space-y-6">
+          <!-- Quiz Questions generated by Javascript -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- PHYSICS (OPTICS) VIEW -->
+    <div id="view-physics" class="space-y-8 hidden">
+      <!-- Unit Banner -->
+      <div class="bg-gradient-to-r from-indigo-900/60 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 shadow-xl">
+        <h2 class="text-2xl font-bold text-indigo-300">Physics (Optics) Exam Preparation</h2>
+        <p class="text-slate-300 mt-2">Get full method marks on your physics lab, test retakes, and final exam questions using the calculators below.</p>
+      </div>
+
+      <!-- GRASS Method Calculator Widget -->
+      <div class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg">
+        <div class="flex items-center gap-2 mb-2">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+          <h3 class="text-lg font-bold text-slate-200">Optics GRASS Solver Tool</h3>
+        </div>
+        <p class="text-sm text-slate-400 mb-4">Input your knowns below, select your goal variable, and click "Generate GRASS Response" to see the full, professionally typeset solution block using the exact method teachers grade you on!</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-slate-900/60 p-5 rounded-xl border border-slate-750">
+          <div>
+            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">1. Select Calculation Type</label>
+            <select id="grass-type" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2.5 text-sm text-indigo-300 focus:border-indigo-500 focus:outline-none" onchange="toggleGrassInputs()">
+              <option value="index">Index of Refraction (n = c / v)</option>
+              <option value="snell">Snell's Law (n₁ sin θ₁ = n₂ sin θ₂)</option>
+              <option value="magnification">Magnification (M = hi / ho = di / do)</option>
+            </select>
+          </div>
+
+          <!-- Dynamic Input Column -->
+          <div id="grass-inputs-col" class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Inputs dynamically populated via JS -->
+          </div>
+        </div>
+
+        <div class="mt-4 flex justify-end">
+          <button onclick="calculateGrass()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm px-5 py-2.5 rounded-lg shadow-lg transition-all flex items-center gap-2">
+            Generate GRASS Response
+          </button>
+        </div>
+
+        <!-- GRASS output container -->
+        <div id="grass-result-card" class="mt-6 bg-slate-950/60 border border-slate-800 rounded-xl p-5 hidden space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+            <span class="text-xs font-bold text-indigo-400 uppercase tracking-widest font-mono">Formulated GRASS Output</span>
+            <span class="text-emerald-400 text-xs font-bold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">Success</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-sm font-mono">
+            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-850">
+              <span class="text-amber-400 font-bold text-xs uppercase">Given (G)</span>
+              <p id="grass-given" class="text-slate-300 mt-1.5 space-y-1 text-xs"></p>
+            </div>
+            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-850">
+              <span class="text-amber-400 font-bold text-xs uppercase">Required (R)</span>
+              <p id="grass-required" class="text-slate-300 mt-1.5 text-xs"></p>
+            </div>
+            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-850">
+              <span class="text-amber-400 font-bold text-xs uppercase">Analysis (A)</span>
+              <p id="grass-analysis" class="text-slate-300 mt-1.5 text-xs"></p>
+            </div>
+            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-850">
+              <span class="text-amber-400 font-bold text-xs uppercase">Solve (S)</span>
+              <p id="grass-solve" class="text-indigo-300 mt-1.5 text-xs"></p>
+            </div>
+            <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-850">
+              <span class="text-amber-400 font-bold text-xs uppercase">Statement (S)</span>
+              <p id="grass-statement" class="text-slate-300 mt-1.5 text-xs"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- High Yield Optics Concepts Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm">
+        <!-- Mirrors, Lenses and SALT -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 space-y-4">
+          <h3 class="text-lg font-bold text-slate-200 border-b border-slate-700 pb-2">1. Mirrors, Lenses & S.A.L.T. Properties</h3>
+          <div class="space-y-3">
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-indigo-400 font-bold uppercase tracking-wider text-xs">Mirror Types Cheat Sheet</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li><strong>Plane Mirror</strong>: S = Same size, A = Upright (laterally inverted), L = Behind mirror, T = Virtual.</li>
+                <li><strong>Concave Mirror (Converging)</strong>: Bends light inwards. Makes things upright & magnified (when close) or upside-down (when far). Used in makeup mirrors, solar cookers.</li>
+                <li><strong>Convex Mirror (Diverging)</strong>: Bends light outwards. Always produces a *smaller, upright, virtual* image. Wide field of view (security/blind-spot mirrors).</li>
+              </ul>
+            </div>
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-indigo-400 font-bold uppercase tracking-wider text-xs">Refraction Bending Rules</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1.5">
+                <li>Entering **denser** medium ($n$ increases e.g. Air $\rightarrow$ Water): light **slows down** and bends **towards** the normal ($\theta_2 < \theta_1$).</li>
+                <li>Entering **less dense** medium ($n$ decreases e.g. Water $\rightarrow$ Air): light **speeds up** and bends **away from** the normal ($\theta_2 > \theta_1$).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Eye Anatomy & Optics Problems -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 space-y-4">
+          <h3 class="text-lg font-bold text-slate-200 border-b border-slate-700 pb-2">2. Vision & Human Eye anatomy</h3>
+          <div class="space-y-3">
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-indigo-400 font-bold uppercase tracking-wider text-xs">Eye Conditions & Lens Correction</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li><strong>Myopia (Nearsighted)</strong>: Can't see far objects. Focal point lands in front of retina. Corrected with a **Diverging (Concave)** lens.</li>
+                <li><strong>Hyperopia (Farsighted)</strong>: Can't see close objects. Focal point lands behind retina. Corrected with a **Converging (Convex)** lens.</li>
+                <li><strong>Astigmatism</strong>: Blurred vision due to an irregularly shaped cornea.</li>
+              </ul>
+            </div>
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-indigo-400 font-bold uppercase tracking-wider text-xs">Total Internal Reflection (TIR)</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li>Occurs when light travels from high to low optical density ($n_1 > n_2$).</li>
+                <li>The angle of incidence ($\theta_1$) must be **greater than the critical angle** ($\theta_c$), causing the light to reflect entirely back into the medium instead of refracting. (E.g., fiber optics, sparkling diamonds).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Physics Quiz Box -->
+      <div id="physics-quiz-section" class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg">
+        <h3 class="text-lg font-bold text-slate-200 mb-2">Optics Unit Exam Quiz</h3>
+        <p class="text-sm text-slate-400 mb-4">Complete these questions. Make sure you can solve Snell's law easily before exam day!</p>
+        <div id="physics-quiz-box" class="space-y-6">
+          <!-- Quiz Questions generated by Javascript -->
+        </div>
+      </div>
+    </div>
+
+
+    <!-- BIOLOGY VIEW -->
+    <div id="view-biology" class="space-y-8 hidden">
+      <!-- Unit Banner -->
+      <div class="bg-gradient-to-r from-emerald-900/60 to-slate-900 border border-emerald-500/30 rounded-2xl p-6 shadow-xl">
+        <h2 class="text-2xl font-bold text-emerald-300">Biology High-Yield Cheatsheets</h2>
+        <p class="text-slate-300 mt-2">Pure memorization facts simplify the Biology unit. Easy marks on the exam sheet!</p>
+      </div>
+
+      <!-- Mitosis & Plant/Animal cells -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm">
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 space-y-4">
+          <h3 class="text-lg font-bold text-slate-200 border-b border-slate-700 pb-2">1. Animal vs Plant Cells & Cell Cycle</h3>
+          <div class="space-y-3">
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-emerald-400 font-bold uppercase tracking-wider text-xs">Primary Differences</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li><strong>Plant Cells</strong>: Have a rigid outer **Cell Wall**, large central vacuole, and **Chloroplasts** for photosynthesis.</li>
+                <li><strong>Animal Cells</strong>: Have small vacuoles, no cell wall/chloroplasts, and contain centrioles for division.</li>
+              </ul>
+            </div>
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-emerald-400 font-bold uppercase tracking-wider text-xs">Mitosis Stages (P.M.A.T.)</span>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1.5">
+                <li><strong>Prophase</strong>: Chromatin condenses into visible chromosomes. Nucleus membrane disappears.</li>
+                <li><strong>Metaphase</strong>: Chromosomes line up straight down the middle (equator) of the cell.</li>
+                <li><strong>Anaphase</strong>: Sister chromatids are pulled apart to opposite ends of the cell.</li>
+                <li><strong>Telophase</strong>: Nuclear membranes reform around two new sets of DNA, ready for Cytokinesis (division of cytoplasm).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tissues & Organ Interdependence -->
+        <div class="bg-slate-800 border border-slate-700 rounded-2xl p-5 space-y-4">
+          <h3 class="text-lg font-bold text-slate-200 border-b border-slate-700 pb-2">2. Levels of Organization & Interdependence</h3>
+          <div class="space-y-3">
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-emerald-400 font-bold uppercase tracking-wider text-xs">Tissues & Organization Hierarchy</span>
+              <p class="text-slate-300 mt-1">Hierarchy: <strong>Cells $\rightarrow$ Tissues $\rightarrow$ Organs $\rightarrow$ Organ Systems $\rightarrow$ Organism</strong>.</p>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li><strong>Epithelial Tissue</strong>: Protects surfaces (skin).</li>
+                <li><strong>Connective Tissue</strong>: Supports structure (bone, blood).</li>
+                <li><strong>Muscle Tissue</strong>: Controls movement (skeletal, cardiac, smooth).</li>
+                <li><strong>Nervous Tissue</strong>: Transmits signals (brain, nerves).</li>
+              </ul>
+            </div>
+            <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-750">
+              <span class="text-emerald-400 font-bold uppercase tracking-wider text-xs">Interdependence (Organ Systems working together)</span>
+              <p class="text-slate-300 mt-1">Organ systems are connected. For instance, to maintain <strong>homeostasis</strong> during exercise:</p>
+              <ul class="list-disc ml-4 text-slate-300 mt-1.5 space-y-1">
+                <li><strong>Respiratory System</strong> pulls in oxygen gas $\text{O}_2$.</li>
+                <li><strong>Circulatory System</strong> pumps the oxygenated blood to your muscle cells.</li>
+                <li><strong>Muscular System</strong> consumes oxygen to produce kinetic work.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Biology High Yield Practice Quiz -->
+      <div id="biology-quiz-section" class="bg-slate-800 border border-slate-700 rounded-2xl p-6 shadow-lg">
+        <h3 class="text-lg font-bold text-slate-200 mb-2">High-Yield Biology Unit Quiz</h3>
+        <p class="text-sm text-slate-400 mb-4">Pure multiple-choice focus on what teachers love to test about organ systems, mitosis, and imaging!</p>
+        <div id="biology-quiz-box" class="space-y-6">
+          <!-- Quiz Questions generated by Javascript -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-slate-800 py-6 mt-12">
+    <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+      <p class="text-sm text-slate-400 font-semibold uppercase tracking-wider">SNC2D Ultimate Study Suite • Created for Rapid Grade Recovery</p>
+      <p class="text-xs text-slate-500">Formulated utilizing official Grade 10 Ontario Curriculum expectations. Keep studying interactively and you will ace your test!</p>
+    </div>
+  </footer>
+
+  <!-- Script logics -->
+  <script>
+    // Global progress tracker
+    const completedMastery = {
+      chemistry: 0,
+      physics: 0,
+      biology: 0
+    };
+
+    function updateProgressRing() {
+      const total = completedMastery.chemistry + completedMastery.physics + completedMastery.biology;
+      const progress = Math.round((total / 30) * 100); // 30 questions total (10 per unit)
+      
+      document.getElementById('global-progress').innerText = `${progress}% Mastered`;
+      
+      // Update SVG circle
+      const circle = document.getElementById('progress-ring-circle');
+      if (circle) {
+        const radius = circle.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (progress / 100) * circumference;
+        circle.style.strokeDasharray = `${circumference} ${circumference}`;
+        circle.style.strokeDashoffset = offset;
+      }
+    }
+
+    // Tab Switching
+    function switchTab(tabName) {
+      // Hide all views
+      document.getElementById('view-dashboard').classList.add('hidden');
+      document.getElementById('view-chemistry').classList.add('hidden');
+      document.getElementById('view-physics').classList.add('hidden');
+      document.getElementById('view-biology').classList.add('hidden');
+
+      // Un-highlight active navigation button
+      const tabs = document.querySelectorAll('.nav-tab');
+      tabs.forEach(t => {
+        t.className = "nav-tab flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-400 hover:text-white hover:bg-slate-700/50 transition-all";
+      });
+
+      // Highlight target active tab & display view
+      document.getElementById(`view-${tabName}`).classList.remove('hidden');
+      document.getElementById(`tab-${tabName}`).className = `nav-tab active flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-semibold text-slate-100 bg-slate-700 transition-all border border-slate-600`;
+    }
+
+    // Balancing Tally Logic
+    function checkBalancing() {
+      const coeffCH4 = parseInt(document.getElementById('coeff-ch4').value) || 1;
+      const coeffO2 = parseInt(document.getElementById('coeff-o2').value) || 1;
+      const coeffCO2 = parseInt(document.getElementById('coeff-co2').value) || 1;
+      const coeffH2O = parseInt(document.getElementById('coeff-h2o').value) || 1;
+
+      // Reactants count
+      const rC = coeffCH4 * 1;
+      const rH = coeffCH4 * 4;
+      const rO = coeffO2 * 2;
+
+      // Products count
+      const pC = coeffCO2 * 1;
+      const pH = coeffH2O * 2;
+      const pO = (coeffCO2 * 2) + (coeffH2O * 1);
+
+      // Update Tally View
+      document.getElementById('tally-c-react').innerText = `Reactants: ${rC}`;
+      document.getElementById('tally-c-prod').innerText = `Products: ${pC}`;
+      document.getElementById('tally-h-react').innerText = `Reactants: ${rH}`;
+      document.getElementById('tally-h-prod').innerText = `Products: ${pH}`;
+      document.getElementById('tally-o-react').innerText = `Reactants: ${rO}`;
+      document.getElementById('tally-o-prod').innerText = `Products: ${pO}`;
+
+      const statusEl = document.getElementById('balancing-status');
+      if (rC === pC && rH === pH && rO === pO) {
+        statusEl.className = "text-sm font-semibold text-emerald-400 mt-3 flex items-center gap-1.5";
+        statusEl.innerHTML = `
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          Balanced perfectly! 1 CH₄ + 2 O₂ → 1 CO₂ + 2 H₂O. That was synthesis of ideas in action!
+        `;
+      } else {
+        statusEl.className = "text-sm font-semibold text-rose-400 mt-3 flex items-center gap-1.5";
+        statusEl.innerHTML = `
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          Not balanced yet. Try adjusting the Reactant O₂ and Product H₂O coefficients.
+        `;
+      }
+    }
+
+    // Dynamic Physics Input UI generator
+    function toggleGrassInputs() {
+      const type = document.getElementById('grass-type').value;
+      const inputsContainer = document.getElementById('grass-inputs-col');
+      inputsContainer.innerHTML = '';
+
+      if (type === 'index') {
+        inputsContainer.innerHTML = `
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Index of Refraction (n)</label>
+            <input type="number" id="g-n" step="0.01" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="e.g. 1.33 (Leave blank if solving for n)">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Speed of Light in Medium (v) in m/s</label>
+            <input type="text" id="g-v" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="e.g. 2.25e8 or blank to solve for v">
+          </div>
+        `;
+      } else if (type === 'snell') {
+        inputsContainer.innerHTML = `
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Index of Medium 1 (n₁)</label>
+            <input type="number" id="g-n1" step="0.01" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="e.g. 1.00">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Index of Medium 2 (n₂)</label>
+            <input type="number" id="g-n2" step="0.01" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="e.g. 1.33">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Angle of Incidence (θ₁ in degrees)</label>
+            <input type="number" id="g-theta1" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="e.g. 33">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Angle of Refraction (θ₂ in degrees)</label>
+            <input type="number" id="g-theta2" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="Leave blank to solve for θ₂">
+          </div>
+        `;
+      } else if (type === 'magnification') {
+        inputsContainer.innerHTML = `
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Object Height (ho) in cm</label>
+            <input type="number" id="g-ho" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="e.g. 10">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Image Height (hi) in cm</label>
+            <input type="number" id="g-hi" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="e.g. 25 (Leave blank if solving via distance)">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Object Distance (do) in cm</label>
+            <input type="number" id="g-do" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="e.g. 15">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 mb-1">Image Distance (di) in cm</label>
+            <input type="number" id="g-di" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-2 text-sm text-slate-200" placeholder="Leave blank if using height">
+          </div>
+        `;
+      }
+    }
+
+    // Optics calculations + GRASS renderer
+    function calculateGrass() {
+      const type = document.getElementById('grass-type').value;
+      const resultCard = document.getElementById('grass-result-card');
+      resultCard.classList.remove('hidden');
+
+      let givenHTML = "";
+      let reqHTML = "";
+      let analHTML = "";
+      let solveHTML = "";
+      let statHTML = "";
+
+      const c = 3.00e8;
+
+      if (type === 'index') {
+        const nInput = parseFloat(document.getElementById('g-n').value);
+        const vInputStr = document.getElementById('g-v').value;
+        const vInput = vInputStr ? parseFloat(vInputStr) : NaN;
+
+        if (isNaN(nInput)) {
+          // Solve for n
+          const v = isNaN(vInput) ? 2.25e8 : vInput;
+          const calculatedN = (c / v).toFixed(2);
+          givenHTML = `v = ${v.toExponential(2)} m/s<br>c = 3.00 × 10⁸ m/s`;
+          reqHTML = `n = ?`;
+          analHTML = `n = c / v`;
+          solveHTML = `n = (3.00 × 10⁸) / (${v.toExponential(2)})<br><strong>n = ${calculatedN}</strong>`;
+          statHTML = `The index of refraction of the medium is approximately ${calculatedN}.`;
+        } else {
+          // Solve for v
+          const calculatedV = c / nInput;
+          givenHTML = `n = ${nInput}<br>c = 3.00 × 10⁸ m/s`;
+          reqHTML = `v = ?`;
+          analHTML = `v = c / n`;
+          solveHTML = `v = (3.00 × 10⁸) / ${nInput}<br><strong>v = ${calculatedV.toExponential(2)} m/s</strong>`;
+          statHTML = `The speed of light in the medium is approximately ${calculatedV.toExponential(2)} m/s.`;
+        }
+      } else if (type === 'snell') {
+        const n1 = parseFloat(document.getElementById('g-n1').value) || 1.00;
+        const n2 = parseFloat(document.getElementById('g-n2').value) || 1.33;
+        const theta1 = parseFloat(document.getElementById('g-theta1').value) || 30;
+        const theta2Input = parseFloat(document.getElementById('g-theta2').value);
+
+        if (isNaN(theta2Input)) {
+          // Solve for theta2
+          const rad1 = (theta1 * Math.PI) / 180;
+          const sinTheta2 = (n1 * Math.sin(rad1)) / n2;
+          if (sinTheta2 > 1) {
+            solveHTML = `sin(θ₂) = ${sinTheta2.toFixed(4)} > 1<br><strong class="text-rose-400">TIR Occurs!</strong>`;
+            statHTML = `Total internal reflection occurs; there is no angle of refraction.`;
+          } else {
+            const rad2 = Math.asin(sinTheta2);
+            const deg2 = (rad2 * 180) / Math.PI;
+            givenHTML = `n₁ = ${n1}<br>n₂ = ${n2}<br>θ₁ = ${theta1}°`;
+            reqHTML = `θ₂ = ?`;
+            analHTML = `n₁ sin(θ₁) = n₂ sin(θ₂)<br>sin(θ₂) = (n₁ sin(θ₁)) / n₂`;
+            solveHTML = `sin(θ₂) = (${n1} × sin(${theta1}°)) / ${n2}<br>sin(θ₂) = ${sinTheta2.toFixed(4)}<br><strong>θ₂ = ${deg2.toFixed(1)}°</strong>`;
+            statHTML = `The angle of refraction inside the second medium is approximately ${deg2.toFixed(1)}°.`;
+          }
+        }
+      } else if (type === 'magnification') {
+        const ho = parseFloat(document.getElementById('g-ho').value) || 10;
+        const hi = parseFloat(document.getElementById('g-hi').value);
+        const doVal = parseFloat(document.getElementById('g-do').value) || 15;
+        const diVal = parseFloat(document.getElementById('g-di').value);
+
+        if (!isNaN(hi)) {
+          // Height base
+          const m = (hi / ho).toFixed(2);
+          givenHTML = `ho = ${ho} cm<br>hi = ${hi} cm`;
+          reqHTML = `M = ?`;
+          analHTML = `M = hi / ho`;
+          solveHTML = `M = ${hi} / ${ho}<br><strong>M = ${m}x</strong>`;
+          statHTML = `The magnification of the object is ${m}x (the image is ${m} times larger than the object).`;
+        } else if (!isNaN(diVal)) {
+          // Distance base
+          const m = (diVal / doVal).toFixed(2);
+          givenHTML = `do = ${doVal} cm<br>di = ${diVal} cm`;
+          reqHTML = `M = ?`;
+          analHTML = `M = di / do`;
+          solveHTML = `M = ${diVal} / ${doVal}<br><strong>M = ${m}x</strong>`;
+          statHTML = `The magnification computed from distance is approximately ${m}x.`;
+        } else {
+          solveHTML = `<span class="text-rose-400">Fill either hi or di to solve.</span>`;
+        }
+      }
+
+      document.getElementById('grass-given').innerHTML = givenHTML;
+      document.getElementById('grass-required').innerHTML = reqHTML;
+      document.getElementById('grass-analysis').innerHTML = analHTML;
+      document.getElementById('grass-solve').innerHTML = solveHTML;
+      document.getElementById('grass-statement').innerHTML = statHTML;
+    }
+
+    // Dynamic practice questions databases
+    const chemistryQuiz = [
+      {
+        q: "What is the correct chemical formula for Potassium oxide?",
+        a: "K2O",
+        options: ["KO", "KO2", "K2O", "K2O2"],
+        explanation: "Potassium is in Family 1 ($K^+$) and Oxygen is in Family 16 ($O^{2-}$). Crossing over charges gives $K_2O$."
+      },
+      {
+        q: "Identify the type of chemical reaction: 2 Mg + O2 -> 2 MgO",
+        a: "Synthesis",
+        options: ["Synthesis", "Decomposition", "Single Displacement", "Combustion"],
+        explanation: "Two separate elements (Mg and O₂) combine to form one single product (MgO), which is the definition of a Synthesis reaction."
+      },
+      {
+        q: "A neutral Manganese (Mn) atom has an atomic number of 25 and mass number of 55. What is its particle composition?",
+        a: "25 protons, 30 neutrons, 25 electrons",
+        options: ["25 protons, 25 neutrons, 25 electrons", "25 protons, 30 neutrons, 25 electrons", "25 protons, 30 neutrons, 30 electrons", "30 protons, 25 neutrons, 25 electrons"],
+        explanation: "Protons = Atomic number (25). Electrons = Atomic number (25 for neutral). Neutrons = Mass (55) - Atomic number (25) = 30."
+      },
+      {
+        q: "How much more acidic is a liquid with a pH of 2 compared to a liquid with a pH of 5?",
+        a: "1000 times",
+        options: ["3 times", "30 times", "100 times", "1000 times"],
+        explanation: "Each step on the pH scale is a 10x change. The difference is 3 steps, so $10^3 = 10 \times 10 \times 10 = 1000$ times more acidic."
+      },
+      {
+        q: "What ion is produced in aqueous solution by all acids?",
+        a: "H+",
+        options: ["OH-", "H+", "CO3^2-", "O^2-"],
+        explanation: "All acids release Hydrogen ions ($H^+$) in solution, while bases typically release Hydroxide ions ($OH^-$)."
+      },
+      {
+        q: "What is the correct chemical name for PBrs (PBr₅)?",
+        a: "Phosphorus pentabromide",
+        options: ["Lead pentabromide", "Phosphorus pentabromide", "Potassium bromide", "Monophosphorus pentabromide"],
+        explanation: "This is a covalent compound (non-metal + non-metal). Use prefixes: 'Phosphorus' (skip mono for the first element) and 'pentabromide'."
+      },
+      {
+        q: "Substance A (452 g) is mixed with Substance B (263 g). Product C has a mass of 111 g and Product D has a mass of 402 g. What is the mass of the remaining Product E?",
+        a: "202 g",
+        options: ["715 g", "513 g", "202 g", "111 g"],
+        explanation: "According to the Law of Conservation of Mass: Reactants Mass = Products Mass. Therefore, $452 + 263 = 111 + 402 + E \\implies 715 = 513 + E \\implies E = 202\\text{ g}$."
+      },
+      {
+        q: "What are diatomic molecules? Choose the correct example set.",
+        a: "Molecules composed of only two atoms like O2, H2, N2",
+        options: ["Molecules composed of only two atoms like O2, H2, N2", "Ionic compounds like NaCl", "Molecules with triple bonds only", "Noble gases like Helium"],
+        explanation: "Diatomic molecules are elements that naturally pair in twos when pure (HOFBrINCl elements: H₂, O₂, F₂, Br₂, I₂, N₂, Cl₂)."
+      },
+      {
+        q: "Which error exists in the name 'carbon (IV) bromide' for CBr4?",
+        a: "Roman numerals are only used for multivalent metals, not molecular compounds.",
+        options: ["Carbon is not in group 4", "It should be carbon tetrabromide without roman numerals", "The compound doesn't exist", "Roman numerals are only used for multivalent metals, not molecular compounds."],
+        explanation: "Carbon and Bromine are non-metals. Covalent compounds must be named using Greek prefixes (Carbon tetrabromide), not Roman numerals."
+      },
+      {
+        q: "What happens to the valence electrons when Beryllium (Be) and Fluorine (F) react?",
+        a: "Be transfers 2 electrons (1 to each of 2 F atoms)",
+        options: ["They share 4 electrons", "Be transfers 2 electrons (1 to each of 2 F atoms)", "Be gains 2 electrons from F", "They form a covalent bond"],
+        explanation: "Beryllium is a metal with 2 valence electrons. Fluorine needs 1. Beryllium transfers its 2 electrons to two separate Fluorine atoms to form $BeF_2$."
+      }
+    ];
+
+    const physicsQuiz = [
+      {
+        q: "What are the characteristics of an image formed in a plane mirror?",
+        a: "Same size, upright, behind mirror, virtual",
+        options: [
+          "Magnified, inverted, on mirror, real",
+          "Same size, upright, behind mirror, virtual",
+          "Diminished, upright, behind mirror, real",
+          "Same size, inverted, behind mirror, virtual"
+        ],
+        explanation: "A plane mirror's image properties (SALT) are: Same size, Upright (laterally inverted), Behind mirror, Virtual."
+      },
+      {
+        q: "Light travels from air (n=1.00) into an optical fiber (n=1.44). What direction does the light bend?",
+        a: "Towards the normal",
+        options: ["Away from the normal", "Towards the normal", "It does not bend", "Reflects completely without entering"],
+        explanation: "When going from a less dense medium (low n) to a denser medium (high n), light slows down and bends TOWARDS the normal."
+      },
+      {
+        q: "Calculate the speed of light in water (n = 1.33).",
+        a: "2.26 x 10^8 m/s",
+        options: ["3.00 x 10^8 m/s", "2.26 x 10^8 m/s", "1.24 x 10^8 m/s", "3.99 x 10^8 m/s"],
+        explanation: "$v = c / n = (3.00 \\times 10^8 \\text{ m/s}) / 1.33 = 2.26 \\times 10^8 \\text{ m/s}$."
+      },
+      {
+        q: "What type of lens is used to correct Myopia (nearsightedness)?",
+        a: "Concave lens (Diverging)",
+        options: ["Convex lens (Converging)", "Concave lens (Diverging)", "Plane glass lens", "Bifocal lens only"],
+        explanation: "Myopia occurs when the eye's focal length is too short. A diverging (concave) lens is used to spread light rays out slightly before entering."
+      },
+      {
+        q: "What two criteria are required for Total Internal Reflection to occur?",
+        a: "Going from high to low index, and angle of incidence > critical angle",
+        options: [
+          "Going from low to high index, and angle of incidence > critical angle",
+          "Going from high to low index, and angle of incidence > critical angle",
+          "Going from high to low index, and angle of incidence = critical angle",
+          "Any angle as long as light enters glass"
+        ],
+        explanation: "TIR only occurs when entering a less dense medium ($n_1 > n_2$) and the incident angle exceeds the critical angle."
+      },
+      {
+        q: "What is the magnification if an object is 10 cm tall and its image is 25 cm tall?",
+        a: "2.5x",
+        options: ["0.4x", "1.5x", "2.5x", "250x"],
+        explanation: "$M = h_i / h_o = 25 \\text{ cm} / 10 \\text{ cm} = 2.5$."
+      },
+      {
+        q: "Light shines from air into a substance at an angle of 33 degrees. If refracted at 18.5 degrees, what is the index of refraction?",
+        a: "1.71",
+        options: ["1.33", "1.52", "1.71", "2.42"],
+        explanation: "By Snell's Law: $n_1 \\sin \\theta_1 = n_2 \\sin \\theta_2 \\implies (1.0003) \\sin(33^\\circ) = n_2 \\sin(18.5^\\circ) \\implies 0.5448 = n_2 (0.3173) \\implies n_2 = 1.71$."
+      },
+      {
+        q: "What causes a mirage on hot roads in summer?",
+        a: "Refraction of light through air layers of different temperatures",
+        options: [
+          "Reflection off of hot metallic particles",
+          "Total internal reflection inside road asphalt",
+          "Refraction of light through air layers of different temperatures",
+          "Optical illusions caused by direct heat fatigue"
+        ],
+        explanation: "Hot air near the ground is less dense than cool air above. Light rays bend gradually upwards as they pass through, mimicking a reflection."
+      },
+      {
+        q: "An image formed in a convex (diverging) mirror is always:",
+        a: "Smaller, upright, virtual",
+        options: ["Larger, upright, virtual", "Smaller, upright, virtual", "Smaller, inverted, real", "Same size, upright, real"],
+        explanation: "Convex mirrors always form virtual, upright, and smaller images, allowing a wide field of view."
+      },
+      {
+        q: "What part of the eye is responsible for focusing light directly onto the retina?",
+        a: "The crystalline lens",
+        options: ["The pupil", "The crystalline lens", "The iris", "The optic nerve"],
+        explanation: "The flexible crystalline lens adjusts its curvature to focus incoming light directly onto the retina for sharp vision."
+      }
+    ];
+
+    const biologyQuiz = [
+      {
+        q: "In which stage of Mitosis do chromatids separate and move to opposite poles of the cell?",
+        a: "Anaphase",
+        options: ["Prophase", "Metaphase", "Anaphase", "Telophase"],
+        explanation: "Remember P-M-A-T: Anaphase (A for Away) is when sister chromatids get pulled apart to opposite ends."
+      },
+      {
+        q: "What are the levels of organization of a multicellular organism from simplest to most complex?",
+        a: "Cells -> Tissues -> Organs -> Organ Systems -> Organism",
+        options: [
+          "Cells -> Organs -> Tissues -> Organ Systems",
+          "Tissues -> Cells -> Organs -> Organ Systems -> Organism",
+          "Cells -> Tissues -> Organs -> Organ Systems -> Organism",
+          "Cells -> Organ Systems -> Organs -> Tissues"
+        ],
+        explanation: "The hierarchy always builds up: Cells make Tissues, Tissues build Organs, Organs link into Organ Systems, which sustain the Organism."
+      },
+      {
+        q: "Which tissue type in animals is specialized for coordination, fast communication, and transmitting signals?",
+        a: "Nervous Tissue",
+        options: ["Epithelial Tissue", "Connective Tissue", "Muscle Tissue", "Nervous Tissue"],
+        explanation: "Nervous tissue (neurons) is specialized to transmit electrical impulses between the brain, spinal cord, and organs."
+      },
+      {
+        q: "What is homeostasis?",
+        a: "The stable internal environment maintained by interdependent organ systems",
+        options: [
+          "The division process of chromosomes",
+          "The chemical process of digesting starch",
+          "The stable internal environment maintained by interdependent organ systems",
+          "Uncontrolled cell division forming tumors"
+        ],
+        explanation: "Homeostasis is the state of dynamic equilibrium that keeps conditions like temperature and oxygen ideal for cells to live."
+      },
+      {
+        q: "Which organ systems must work together to supply oxygen to muscle tissues during intensive running?",
+        a: "Respiratory and Circulatory Systems",
+        options: [
+          "Digestive and Nervous Systems",
+          "Respiratory and Circulatory Systems",
+          "Integumentary and Muscular Systems",
+          "Excretory and Skeletal Systems"
+        ],
+        explanation: "The respiratory system captures oxygen, and the circulatory system transports it via blood vessels directly to target muscles."
+      },
+      {
+        q: "What defines stem cells?",
+        a: "Undifferentiated cells capable of dividing and becoming specialized cells",
+        options: [
+          "Cells that form plant leaves only",
+          "Cells that have undergone apoptosis",
+          "Undifferentiated cells capable of dividing and becoming specialized cells",
+          "Dead cells inside bone marrow structures"
+        ],
+        explanation: "Stem cells are the 'blank slates' of the body that can divide to replace damaged cells or specialize into specific tissues."
+      },
+      {
+        q: "How does cancer occur?",
+        a: "Uncontrolled cell division due to mutations in DNA regulating the cell cycle",
+        options: [
+          "Normal cell aging and programmed apoptosis",
+          "A lack of white blood cells in body tissue",
+          "Uncontrolled cell division due to mutations in DNA regulating the cell cycle",
+          "Excessive chemical acid concentration in organs"
+        ],
+        explanation: "If genes that regulate cell cycle checkpoints mutate, cells divide repeatedly without control, giving rise to tumors."
+      },
+      {
+        q: "What is an important structural difference between plant and animal cells?",
+        a: "Plant cells contain chloroplasts and a rigid cell wall, whereas animal cells do not.",
+        options: [
+          "Animal cells have cell walls, plant cells do not",
+          "Plant cells contain chloroplasts and a rigid cell wall, whereas animal cells do not.",
+          "Animal cells lack nuclei",
+          "Plant cells utilize centrioles for division"
+        ],
+        explanation: "Only plant cells have cell walls (structure) and chloroplasts (energy production via light)."
+      },
+      {
+        q: "What is immunization/vaccination?",
+        a: "Injecting dead or weakened pathogens to train the immune system to produce antibodies",
+        options: [
+          "An immediate chemical cure for viral infections",
+          "Injecting dead or weakened pathogens to train the immune system to produce antibodies",
+          "An medical scanning method",
+          "A method of filtering blood toxins"
+        ],
+        explanation: "Vaccines contain harmless parts of a virus/bacteria, helping memory white blood cells prep antibodies ahead of real infection."
+      },
+      {
+        q: "Which medical imaging technique uses high frequency sound waves to create live images of soft tissues?",
+        a: "Ultrasound",
+        options: ["X-Ray", "CT Scan", "MRI", "Ultrasound"],
+        explanation: "Ultrasound uses safe acoustic echo waves, making it ideal for checking soft structures or developing fetuses."
+      }
+    ];
+
+    // Quiz generator logic
+    function generateQuiz(quizData, containerId, unitKey) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+
+      quizData.forEach((item, index) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = "bg-slate-900/50 border border-slate-750 p-5 rounded-xl space-y-3";
+        
+        // Formulating question title
+        qDiv.innerHTML = `
+          <div class="flex items-start gap-2.5">
+            <span class="bg-slate-800 text-slate-300 w-6 h-6 rounded-full flex items-center justify-center text-xs font-mono font-bold shrink-0 mt-0.5">${index + 1}</span>
+            <p class="font-semibold text-slate-200 text-sm md:text-base">${item.q}</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pl-8 mt-2">
+            ${item.options.map((opt, oIdx) => `
+              <button onclick="checkAnswer(${index}, '${opt}', '${containerId}', '${unitKey}', this)" class="text-left text-xs md:text-sm bg-slate-800 hover:bg-slate-750 hover:text-white text-slate-300 px-4 py-2.5 rounded-lg border border-slate-700/60 transition-all focus:outline-none">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+          <div id="${unitKey}-explanation-${index}" class="hidden pl-8 mt-3 text-xs bg-slate-950/40 border border-slate-800 p-3.5 rounded-lg text-slate-400 leading-relaxed">
+            <!-- Explained dynamically -->
+          </div>
+        `;
+        container.appendChild(qDiv);
+      });
+    }
+
+    const quizStates = {
+      chemistry: {},
+      physics: {},
+      biology: {}
+    };
+
+    function checkAnswer(qIdx, selectedOpt, containerId, unitKey, btnEl) {
+      // Prevent clicking multiple times
+      if (quizStates[unitKey][qIdx]) return;
+      quizStates[unitKey][qIdx] = true;
+
+      const quizData = unitKey === 'chemistry' ? chemistryQuiz : (unitKey === 'physics' ? physicsQuiz : biologyQuiz);
+      const question = quizData[qIdx];
+      const explanationEl = document.getElementById(`${unitKey}-explanation-${qIdx}`);
+      
+      explanationEl.classList.remove('hidden');
+
+      // Style all sibling buttons
+      const buttons = btnEl.parentNode.querySelectorAll('button');
+      buttons.forEach(btn => {
+        const text = btn.innerText.trim();
+        if (text === question.a) {
+          btn.className = "text-left text-xs md:text-sm bg-emerald-500/10 border border-emerald-500 text-emerald-400 px-4 py-2.5 rounded-lg transition-all font-semibold";
+        } else if (text === selectedOpt) {
+          btn.className = "text-left text-xs md:text-sm bg-rose-500/10 border border-rose-500 text-rose-400 px-4 py-2.5 rounded-lg transition-all";
+        } else {
+          btn.className = "text-left text-xs md:text-sm bg-slate-900/40 border border-slate-800 text-slate-500 px-4 py-2.5 rounded-lg transition-all cursor-not-allowed";
+        }
+      });
+
+      if (selectedOpt === question.a) {
+        explanationEl.innerHTML = `<span class="text-emerald-400 font-bold">✓ Correct!</span> ${question.explanation}`;
+        completedMastery[unitKey]++;
+        updateProgressRing();
+      } else {
+        explanationEl.innerHTML = `<span class="text-rose-400 font-bold">✗ Incorrect.</span> Correct Answer: <strong>${question.a}</strong>. <br class="my-1">${question.explanation}`;
+      }
+    }
+
+    // Init scripts
+    window.onload = function() {
+      // Dynamic rendering
+      toggleGrassInputs();
+      generateQuiz(chemistryQuiz, 'chem-quiz-box', 'chemistry');
+      generateQuiz(physicsQuiz, 'physics-quiz-box', 'physics');
+      generateQuiz(biologyQuiz, 'biology-quiz-box', 'biology');
+      
+      // Ring initial state
+      updateProgressRing();
+    };
+  </script>
+</body>
+</html>
